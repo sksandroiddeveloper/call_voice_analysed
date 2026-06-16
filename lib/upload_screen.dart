@@ -384,7 +384,7 @@ class _UploadScreenState extends State<UploadScreen> {
           isAiAnalyzing
               ? 'Analyzing Speaker 0...'
               : aiAnalysis == null
-              ? 'Analyze Speaker 0 with AI'
+              ? 'Analyze Speaker 0 with Gemma'
               : 'Analyze Again',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w600,
@@ -575,7 +575,7 @@ class _UploadScreenState extends State<UploadScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Speaker 0 AI Analysis',
+                        'Speaker 0 Gemma Analysis',
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -739,7 +739,7 @@ class _UploadScreenState extends State<UploadScreen> {
                 Expanded(
                   child: _buildConfigOption(
                     'Model',
-                    'Saaras v3',
+                    'Sarvam AI STT',
                     Icons.model_training,
                   ),
                 ),
@@ -776,11 +776,11 @@ class _UploadScreenState extends State<UploadScreen> {
             const SizedBox(height: 24),
             SwitchListTile(
               title: Text(
-                'Enable Quality Analysis',
+                'Enable Gemma Local Analysis',
                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
               ),
               subtitle: Text(
-                'Score telecallers on professionalism & empathy',
+                'Score Speaker 0 using LM Studio Gemma model',
                 style: GoogleFonts.poppins(fontSize: 12),
               ),
               value: true,

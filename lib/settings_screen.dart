@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     _buildSettingsTile(
                       title: 'API Configuration',
-                      subtitle: 'Configure Sarvam AI API settings',
+                      subtitle: 'Configure STT and local AI settings',
                       icon: Icons.api,
                     ),
                     const Divider(),

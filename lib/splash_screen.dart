@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       const SizedBox(height: 32),
                       // App Name
                       Text(
-                        'Teleone',
+                        'Voice',
                         style: GoogleFonts.poppins(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Voice Quality Analyzer',
+                        'Quality Analyzer',
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -89,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          'Powered by Teleone Consumer Products Pvt Ltd',
+                          'Powered by Developer',
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             color: Colors.white,

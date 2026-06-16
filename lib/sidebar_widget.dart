@@ -52,7 +52,7 @@ class SidebarWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Teleone',
+                      'Voice',
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -60,7 +60,7 @@ class SidebarWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Voice Analyzer',
+                      'Analyzer',
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: const Color(0xFF6B7280),
@@ -127,7 +127,7 @@ class SidebarWidget extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Teleone Voice Team',
+                        'Voice Team',
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           color: const Color(0xFF6B7280),

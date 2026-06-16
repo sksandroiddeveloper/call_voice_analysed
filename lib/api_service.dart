@@ -164,29 +164,78 @@ class ApiService {
     }
   }
 
+  static const String localGemmaProxyUrl = 'http://localhost:3001/api/local-gemma/analyze';
+
   Future<Map<String, dynamic>> analyzeTranscriptWithAI({
     required List<Map<String, dynamic>> diarizedTranscript,
   }) async {
     try {
+      if (diarizedTranscript.isEmpty) {
+        throw Exception('Transcript is empty. Nothing to analyze.');
+      }
+
       final response = await http.post(
-        Uri.parse('$baseUrl/ai/analyze-transcript'),
+        Uri.parse(localGemmaProxyUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'diarizedTranscript': diarizedTranscript,
         }),
       );
 
-      final data = jsonDecode(response.body);
+      final data = response.body.trim().isNotEmpty
+          ? jsonDecode(response.body)
+          : <String, dynamic>{};
 
       if (response.statusCode == 200 && data['success'] == true) {
-        return Map<String, dynamic>.from(data['analysis']);
-      } else {
-        throw Exception(data['error'] ?? 'Failed to analyze transcript');
+        final analysis = Map<String, dynamic>.from(data['analysis'] as Map);
+
+        analysis['speaker0_rating'] = _normalizeScore(
+          analysis['speaker0_rating'] ?? analysis['rating'] ?? analysis['score'],
+        );
+        analysis['summary'] = analysis['summary']?.toString() ?? '';
+        analysis['score_table'] = _normalizeListOfMaps(analysis['score_table']);
+        analysis['strong_points'] = _normalizeStringList(analysis['strong_points']);
+        analysis['weak_points'] = _normalizeStringList(analysis['weak_points']);
+        analysis['suggestions'] = _normalizeStringList(
+          analysis['suggestions'] ?? analysis['improvement_suggestions'],
+        );
+
+        return analysis;
       }
+
+      throw Exception(data['error'] ?? 'Failed to analyze transcript with local Gemma proxy');
     } catch (e) {
-      throw Exception('Error analyzing transcript with AI: $e');
+      throw Exception('Error analyzing transcript with local Gemma proxy: $e');
     }
   }
+
+  double _normalizeScore(dynamic value) {
+    final parsed = double.tryParse(value?.toString() ?? '') ?? 0;
+    if (parsed < 0) return 0;
+    if (parsed > 10) return 10;
+    return double.parse(parsed.toStringAsFixed(1));
+  }
+
+  List<Map<String, dynamic>> _normalizeListOfMaps(dynamic value) {
+    if (value is! List) return <Map<String, dynamic>>[];
+
+    return value.whereType<Map>().map((item) {
+      final row = Map<String, dynamic>.from(item);
+      row['metric'] = row['metric']?.toString() ?? '';
+      row['score'] = _normalizeScore(row['score']);
+      row['reason'] = row['reason']?.toString() ?? '';
+      return row;
+    }).toList();
+  }
+
+  List<String> _normalizeStringList(dynamic value) {
+    if (value is! List) return <String>[];
+    return value
+        .map((item) => item.toString().trim())
+        .where((item) => item.isNotEmpty)
+        .toList();
+  }
+
 
 
   Future<Map<String, dynamic>> saveConversation({

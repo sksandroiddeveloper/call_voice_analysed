@@ -39,7 +39,7 @@ class TeleoneVoiceAnalyzerApp extends StatelessWidget {
         Provider.value(value: prefs),
       ],
       child: MaterialApp(
-        title: 'Teleone Voice Analyzer',
+        title: 'Voice Analyzer',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: const Color(0xFF4F46E5),

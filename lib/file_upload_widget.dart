@@ -113,7 +113,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget> {
       }
 
       setState(() {
-        jobStatus = 'Processing audio files with Sarvam AI...';
+        jobStatus = 'Processing audio files with STT...';
         uploadProgress = 0.5;
       });
 
